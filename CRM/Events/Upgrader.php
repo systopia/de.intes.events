@@ -29,19 +29,21 @@ class CRM_Events_Upgrader extends CRM_Events_Upgrader_Base
         $customData = new CRM_Events_CustomData(E::LONG_NAME);
 
         // option groups
-        $customData->syncOptionGroup(E::path('resources/option_group_recommendation.json'));
+        $customData->syncOptionGroup(E::path('resources/option_group_remote_registration_recommendation.json'));
         $customData->syncOptionGroup(E::path('resources/option_group_remote_registration_profiles.json'));
 
         // custom groups
-        $customData->syncCustomGroup(E::path('resources/custom_group_event_additional.json'));
+        $customData->syncCustomGroup(E::path('resources/custom_group_participant_details.json'));
+        $customData->syncCustomGroup(E::path('resources/custom_group_participant_billing.json'));
 
     }
 
-    //public function upgrade_0003()
+    //public function upgrade_0005()
     //{
     //    $customData = new CRM_Remoteevent_CustomData(E::LONG_NAME);
-    //    $customData->syncOptionGroup(E::path('resources/option_group_event_type.json'));
-    //    $customData->syncCustomGroup(E::path('resources/custom_group_contact_ekir.json'));
+    //    //$customData->syncOptionGroup(E::path('resources/option_group_event_type.json'));
+    //    $customData->syncOptionGroup(E::path('resources/option_group_remote_registration_recommendation.json'));
+    //    $customData->syncCustomGroup(E::path('resources/custom_group_participant_details.json'));
     //    return true;
     //}
 

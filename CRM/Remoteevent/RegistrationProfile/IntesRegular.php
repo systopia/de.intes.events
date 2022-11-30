@@ -87,7 +87,7 @@ class CRM_Remoteevent_RegistrationProfile_IntesRegular extends CRM_Remoteevent_R
                 'description' => $l10n->localise("Participant's street and house number"),
                 'parent'      => 'billing_address',
             ],
-            'billing_supplemental_address_1' => [
+            /*'billing_supplemental_address_1' => [
                 'name'        => 'billing_supplemental_address_1',
                 'type'        => 'Text',
                 'validation'  => '',
@@ -106,7 +106,7 @@ class CRM_Remoteevent_RegistrationProfile_IntesRegular extends CRM_Remoteevent_R
                 'required'    => 0,
                 'label'       => $l10n->localise('Supplemental Address 2'),
                 'parent'      => 'billing_address',
-            ],
+            ],*/
             'billing_postal_code'            => [
                 'name'        => 'billing_postal_code',
                 'type'        => 'Text',
@@ -127,7 +127,7 @@ class CRM_Remoteevent_RegistrationProfile_IntesRegular extends CRM_Remoteevent_R
                 'label'       => $l10n->localise('City'),
                 'parent'      => 'billing_address',
             ],
-            'billing_country_id'             => [
+            /*'billing_country_id'             => [
                 'name'        => 'billing_country_id',
                 'type'        => 'Select',
                 'options'     => $this->getCountries($locale),
@@ -156,6 +156,24 @@ class CRM_Remoteevent_RegistrationProfile_IntesRegular extends CRM_Remoteevent_R
                 'options'     => $this->getStateProvinces($locale),
                 'label'       => $l10n->localise('State or Province'),
                 'parent'      => 'billing_address'
+            ],*/
+            'other' => [
+                'type'        => 'fieldset',
+                'name'        => 'other',
+                'label'       => $l10n->localise("Other"),
+                'weight'      => 70,
+                'description' => '',
+            ],
+            'event_recommendation'                   => [
+                'name'        => 'event_recommendation',
+                'type'        => 'Select',
+                'validation'  => '',
+                'maxlength'   => 64,
+                'weight'      => 70,
+                'required'    => 0,
+                'options'     => $this->getEventRecommendationOptions(),
+                'label'       => $l10n->localise('Event Recommendation'),
+                'parent'      => 'other',
             ],
         ];
 
@@ -245,12 +263,12 @@ class CRM_Remoteevent_RegistrationProfile_IntesRegular extends CRM_Remoteevent_R
         // use the base profile's mapping and add our two fields
         return [
             'billing_street_address'          => 'participant_billing.event_participant_billing_street_address',
-            'billing_supplemental_address_1'  => 'participant_billing.event_participant_billing_supplemental_address_1',
-            'billing_supplemental_address_2'  => 'participant_billing.event_participant_billing_supplemental_address_2',
+            //'billing_supplemental_address_1'  => 'participant_billing.event_participant_billing_supplemental_address_1',
+            //'billing_supplemental_address_2'  => 'participant_billing.event_participant_billing_supplemental_address_2',
             'billing_postal_code'             => 'participant_billing.event_participant_billing_postal_code',
             'billing_city'                    => 'participant_billing.event_participant_billing_city',
-            'billing_country_id'              => 'participant_billing.event_participant_billing_country',
-            'billing_state_province_id'       => 'participant_billing.event_participant_billing_state_province_id',
+            //'billing_country_id'              => 'participant_billing.event_participant_billing_country',
+            //'billing_state_province_id'       => 'participant_billing.event_participant_billing_state_province_id',
             'billing_organisation'            => 'participant_billing.event_participant_billing_organisation_name',
         ];
     }
@@ -300,5 +318,27 @@ class CRM_Remoteevent_RegistrationProfile_IntesRegular extends CRM_Remoteevent_R
                 $participant_data['role_id'] = $participant_roles;
             }
         }
+    }
+
+    /**
+     * Get a list of all Event Recommendation Options
+     *
+     * @return array
+     */
+    public function getEventRecommendationOptions()
+    {
+        $options = [];
+
+        // load the two roles expected here
+        $query = civicrm_api3('OptionValue', 'get', [
+            'option_group_id' => "remote_registration_recommendation",
+            'return' => ["value", "label", "name"],
+        ]);
+
+        foreach ($query['values'] as $option) {
+            $options[$option['value']] = $option['label'];
+        }
+
+        return $options;
     }
 }

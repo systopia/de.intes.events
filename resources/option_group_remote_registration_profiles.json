@@ -5,9 +5,19 @@
     {
       "_lookup": ["name"],
       "_translate": ["label", "description"],
-      "name": "intesregular",
+      "name": "IntesRegular",
       "label": "Intes regulär",
       "description": "Basiert auf Standard3, siehe Ticket #19780",
+      "filter": "0",
+      "is_reserved": "1",
+      "is_active": "1"
+    },
+    {
+      "_lookup": ["name"],
+      "_translate": ["label", "description"],
+      "name": "KomplettMitRechnung",
+      "label": "Komplett mit Rechnung",
+      "description": "Basiert auf Standard3, siehe Ticket #17208",
       "filter": "0",
       "is_reserved": "1",
       "is_active": "1"

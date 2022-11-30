@@ -48,7 +48,7 @@ class CRM_Events_Upgrader_Base {
   public static function instance() {
     if (!self::$instance) {
       self::$instance = new CRM_Events_Upgrader(
-        'de.ekir.events',
+        'de.intes.events',
         E::path()
       );
     }
