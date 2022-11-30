@@ -1,0 +1,16 @@
+{
+  "_lookup": ["name"],
+  "name": "remote_registration_profiles",
+  "_values": [
+    {
+      "_lookup": ["name"],
+      "_translate": ["label", "description"],
+      "name": "intesregular",
+      "label": "Intes regulär",
+      "description": "Basiert auf Standard3, siehe Ticket #19780",
+      "filter": "0",
+      "is_reserved": "1",
+      "is_active": "1"
+    }
+  ]
+}
