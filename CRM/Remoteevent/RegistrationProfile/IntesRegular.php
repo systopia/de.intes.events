@@ -30,7 +30,7 @@ class CRM_Remoteevent_RegistrationProfile_IntesRegular extends CRM_Remoteevent_R
      */
     public function getName()
     {
-        return 'intesregular';
+        return 'IntesRegular';
     }
 
     /**
@@ -58,6 +58,59 @@ class CRM_Remoteevent_RegistrationProfile_IntesRegular extends CRM_Remoteevent_R
 
         $l10n = CRM_Remoteevent_Localisation::getLocalisation($locale);
         $fields = [
+            'company'         => [
+                'name'        => 'company',
+                'type'        => 'Text',
+                'validation'  => '',
+                'maxlength'   => 96,
+                'weight'      => 60,
+                'required'    => 1,
+                'label'       => $l10n->localise('Company'),
+                'parent'      => 'contact_base',
+            ],
+            'job_title'         => [
+                'name'        => 'job_title',
+                'type'        => 'Text',
+                'validation'  => '',
+                'maxlength'   => 96,
+                'weight'      => 70,
+                'required'    => 1,
+                'label'       => $l10n->localise('Job Title'),
+                'parent'      => 'contact_base',
+            ],
+
+            'email' => [
+                'name'        => 'email',
+                'type'        => 'Text',
+                'validation'  => 'Email',
+                'weight'      => 80,
+                'required'    => 1,
+                'label'       => $l10n->localise('Email'),
+                'description' => '', // $l10n->localise("Participant's email address"),
+                'parent'      => 'contact_address',
+            ],
+            'email_confirmation' => [
+                'name'        => 'email_confirmation',
+                'type'        => 'Text',
+                'validation'  => 'Email',
+                'weight'      => 90,
+                'required'    => 1,
+                'label'       => $l10n->localise('Email bestätigen'),
+                'description' => '', // $l10n->localise("Participant's email address"),
+                'parent'      => 'contact_address',
+            ],
+            'phone'                  => [
+                'name'        => 'phone',
+                'type'        => 'Text',
+                'validation'  => '',
+                'maxlength'   => 32,
+                'weight'      => 100,
+                'required'    => 0,
+                'label'       => $l10n->localise('Phone Number'),
+                'description' => $l10n->localise("Please include country code"),
+                'parent'      => 'contact_address',
+            ],
+
             'billing_address' => [
                 'type'        => 'fieldset',
                 'name'        => 'billing_address',
@@ -160,7 +213,7 @@ class CRM_Remoteevent_RegistrationProfile_IntesRegular extends CRM_Remoteevent_R
             'other' => [
                 'type'        => 'fieldset',
                 'name'        => 'other',
-                'label'       => $l10n->localise("Other"),
+                'label'       => $l10n->localise("Weiteres"),
                 'weight'      => 70,
                 'description' => '',
             ],
@@ -172,11 +225,41 @@ class CRM_Remoteevent_RegistrationProfile_IntesRegular extends CRM_Remoteevent_R
                 'weight'      => 70,
                 'required'    => 0,
                 'options'     => $this->getEventRecommendationOptions(),
-                'label'       => $l10n->localise('Event Recommendation'),
+                'label'       => $l10n->localise('Wie sind Sie auf die INTES Akademie aufmerksam geworden?'),
+                'parent'      => 'other',
+
+            ],
+            'event_recommendation_other'                   => [
+                'name'        => 'event_recommendation_other',
+                'type'        => 'Text',
+                'validation'  => '',
+                'maxlength'   => 64,
+                'weight'      => 80,
+                'required'    => 0,
+                'label'       => $l10n->localise('Sonstiges'),
                 'parent'      => 'other',
             ],
         ];
+        # unset Phone, supplementary address
+        unset($parent_fields['phone']);
+        unset($parent_fields['supplemental_address_1']);
+        unset($parent_fields['supplemental_address_2']);
 
+        # require Plz, Str, City, Country
+        $parent_fields['postal_code']['required'] = 1;
+        $parent_fields['street_address']['required'] = 1;
+        $parent_fields['city']['required'] = 1;
+        $parent_fields['country_id']['required'] = 1;
+
+        # move Email to Address Block
+        unset($parent_fields['email']);
+
+        # remove Bundesland
+        unset($parent_fields['state_province_id']);
+        unset($parent_fields['country_id']['dependencies']);
+
+
+        #
         return $parent_fields + $fields;
     }
 
@@ -270,6 +353,9 @@ class CRM_Remoteevent_RegistrationProfile_IntesRegular extends CRM_Remoteevent_R
             //'billing_country_id'              => 'participant_billing.event_participant_billing_country',
             //'billing_state_province_id'       => 'participant_billing.event_participant_billing_state_province_id',
             'billing_organisation'            => 'participant_billing.event_participant_billing_organisation_name',
+            'event_recommendation' => 'participant_details.event_recommendation',
+            'event_recommendation_other' => 'participant_details.event_recommendation_other',
+
         ];
     }
 

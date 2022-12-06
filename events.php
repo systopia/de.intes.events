@@ -31,9 +31,9 @@ function events_civicrm_config(&$config) {
         'civi.remoteevent.registration.submit',
         ['CRM_Remoteevent_RegistrationProfile_IntesRegular', 'mapParticipantData'], CRM_Remoteevent_Registration::BEFORE_PARTICIPANT_CREATION);
 
-    $dispatcher->addUniqueListener(
-        'civi.remoteevent.registration.submit',
-        ['CRM_Remoteevent_RegistrationProfile_IntesRegular', 'markContributor'], CRM_Remoteevent_Registration::BEFORE_PARTICIPANT_CREATION);
+    //$dispatcher->addUniqueListener(
+    //    'civi.remoteevent.registration.submit',
+    //    ['CRM_Remoteevent_RegistrationProfile_IntesRegular', 'markContributor'], CRM_Remoteevent_Registration::BEFORE_PARTICIPANT_CREATION);
 
     // register for RemoteParticipant.update events
     //$dispatcher->addUniqueListener(
