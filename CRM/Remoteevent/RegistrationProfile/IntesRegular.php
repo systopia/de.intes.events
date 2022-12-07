@@ -239,7 +239,19 @@ class CRM_Remoteevent_RegistrationProfile_IntesRegular extends CRM_Remoteevent_R
                 'label'       => $l10n->localise('Sonstiges'),
                 'parent'      => 'other',
             ],
+           'event_agb'                   => [
+                'name'        => 'event_agb',
+                'type'        => 'Checkbox',
+                'validation'  => '',
+                'weight'      => 90,
+                'required'    => 1,
+                'label'       => $l10n->localise('Anmeldebedingungen für unsere Seminare und Veranstaltungen'),
+                'description' => $l10n->localise("Mit Ihrer Anmeldung bestätigen Sie, dass Sie unsere AGB zur Kenntnis genommen haben. Hinsichtlich der Verarbeitung Ihrer personenbezogenen Daten verweisen wir auf unsere Datenschutzerklärung.
+Nach Ihrer Anmeldung erhalten Sie eine schriftliche Bestätigung und eine Anfahrtsbeschreibung. Unsere Rechnung erhalten Sie mit der Bestätigung. Bei Absagen später als vier Wochen vor Veranstaltungsbeginn werden 50 Prozent des Preises berechnet. Bei Absagen später als zwei Wochen vor Veranstaltungsbeginn wird der volle Preis berechnet. Sie können jedoch gerne Ersatzteilnehmer benennen. Für Webinare gilt eine verkürzte Stornofrist. Webinare können bis zu 48 h vor Veranstaltungstermin kostenfrei storniert werden. Bitte beachten Sie: Bei Webinaren gibt es keinen Begleitpersonentarif. "),
+                'parent'      => 'other',
+            ],
         ];
+
         # unset Phone, supplementary address
         unset($parent_fields['phone']);
         unset($parent_fields['supplemental_address_1']);
