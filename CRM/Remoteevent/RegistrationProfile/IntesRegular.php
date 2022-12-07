@@ -140,26 +140,6 @@ class CRM_Remoteevent_RegistrationProfile_IntesRegular extends CRM_Remoteevent_R
                 'description' => $l10n->localise("Participant's street and house number"),
                 'parent'      => 'billing_address',
             ],
-            /*'billing_supplemental_address_1' => [
-                'name'        => 'billing_supplemental_address_1',
-                'type'        => 'Text',
-                'validation'  => '',
-                'maxlength'   => 96,
-                'weight'      => 20,
-                'required'    => 0,
-                'label'       => $l10n->localise('Supplemental Address'),
-                'parent'      => 'billing_address',
-            ],
-            'billing_supplemental_address_2' => [
-                'name'        => 'billing_supplemental_address_2',
-                'type'        => 'Text',
-                'validation'  => '',
-                'maxlength'   => 96,
-                'weight'      => 30,
-                'required'    => 0,
-                'label'       => $l10n->localise('Supplemental Address 2'),
-                'parent'      => 'billing_address',
-            ],*/
             'billing_postal_code'            => [
                 'name'        => 'billing_postal_code',
                 'type'        => 'Text',
@@ -180,36 +160,15 @@ class CRM_Remoteevent_RegistrationProfile_IntesRegular extends CRM_Remoteevent_R
                 'label'       => $l10n->localise('City'),
                 'parent'      => 'billing_address',
             ],
-            /*'billing_country_id'             => [
-                'name'        => 'billing_country_id',
-                'type'        => 'Select',
-                'options'     => $this->getCountries($locale),
+            'billing_comment'                   => [
+                'name'        => 'billing_comment',
+                'type'        => 'Textarea',
                 'validation'  => '',
                 'weight'      => 60,
                 'required'    => 0,
-                'label'       => $l10n->localise('Country'),
+                'label'       => $l10n->localise('Bemerkungen'),
                 'parent'      => 'billing_address',
-                'dependencies'=> [
-                    [
-                        'dependent_field'       => 'billing_state_province_id',
-                        'hide_unrestricted'     => 1,
-                        'hide_restricted_empty' => 1,
-                        'command'               => 'restrict',
-                        'regex_subject'         => 'dependent',
-                        'regex'                 => '^({current_value}-[0-9]+)$',
-                    ],
-                ],
             ],
-            'billing_state_province_id'    => [
-                'name'        => 'billing_state_province_id',
-                'type'        => 'Select',
-                'validation'  => '',
-                'weight'      => 70,
-                'required'    => 0,
-                'options'     => $this->getStateProvinces($locale),
-                'label'       => $l10n->localise('State or Province'),
-                'parent'      => 'billing_address'
-            ],*/
             'other' => [
                 'type'        => 'fieldset',
                 'name'        => 'other',
@@ -415,16 +374,13 @@ Nach Ihrer Anmeldung erhalten Sie eine schriftliche Bestätigung und eine Anfahr
         // use the base profile's mapping and add our two fields
         return [
             'billing_street_address'          => 'participant_billing.event_participant_billing_street_address',
-            //'billing_supplemental_address_1'  => 'participant_billing.event_participant_billing_supplemental_address_1',
-            //'billing_supplemental_address_2'  => 'participant_billing.event_participant_billing_supplemental_address_2',
             'billing_postal_code'             => 'participant_billing.event_participant_billing_postal_code',
             'billing_city'                    => 'participant_billing.event_participant_billing_city',
-            //'billing_country_id'              => 'participant_billing.event_participant_billing_country',
-            //'billing_state_province_id'       => 'participant_billing.event_participant_billing_state_province_id',
             'billing_organisation'            => 'participant_billing.event_participant_billing_organisation_name',
+            'billing_comment' => 'participant_billing.event_participant_billing_comment',
             'event_recommendation' => 'participant_details.event_recommendation',
             'event_recommendation_other' => 'participant_details.event_recommendation_other',
-
+            'company' => 'participant_details.event_company',
         ];
     }
 
