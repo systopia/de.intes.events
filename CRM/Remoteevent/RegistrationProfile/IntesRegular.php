@@ -376,13 +376,13 @@ Nach Ihrer Anmeldung erhalten Sie eine schriftliche Bestätigung und eine Anfahr
                 'name' => $group_name,
             ]);
         } catch (CiviCRM_API3_Exception $exception) {
-            Civi::log()->error("EKIR-Events: Couldn't get Group for createMailingEventSubscribe. Error was: " . $exception->getMessage());
+            Civi::log()->error("Remote-Events: Couldn't get Group for createMailingEventSubscribe. Error was: " . $exception->getMessage());
             return;
         }
 
         // if group id exists
         if (empty($group) or empty($group['id'])) {
-            Civi::log()->error("EKIR-Events: No Group returned for createMailingEventSubscribe. Maybe no Group exists with name: " . $group_name);
+            Civi::log()->error("Remote-Events: No Group returned for createMailingEventSubscribe. Maybe no Group exists with name: " . $group_name);
             return;
         }else{
             try{
@@ -398,7 +398,7 @@ Nach Ihrer Anmeldung erhalten Sie eine schriftliche Bestätigung und eine Anfahr
                 #Civi::log()->debug('Successfully subscribed for Mailing Group ID:'.$group['id']);
 
             } catch (CiviCRM_API3_Exception $exception) {
-                Civi::log()->error("EKIR-Events: Couldn't Subscribe contact to Group. Error was: " . $exception->getMessage());
+                Civi::log()->error("Remote-Events: Couldn't Subscribe contact to Group. Error was: " . $exception->getMessage());
                 return;
             }
         }
@@ -456,7 +456,7 @@ Nach Ihrer Anmeldung erhalten Sie eine schriftliche Bestätigung und eine Anfahr
                         'name' => 'contributor'
                     ]);
                 } catch (CiviCRM_API3_Exception $exception) {
-                    Civi::log()->error("EKIR-Events: Couldn't mark participant as contributor, role not found. Error was: " . $exception->getMessage());
+                    Civi::log()->error("Remote-Events: Couldn't mark participant as contributor, role not found. Error was: " . $exception->getMessage());
                     return;
                 }
             }

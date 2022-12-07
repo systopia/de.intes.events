@@ -1,6 +1,6 @@
 <?php
 /*-------------------------------------------------------+
-| EKIR EVENTS IMPLEMENTATION AND MODIFICATIONS           |
+| REMOTE EVENTS IMPLEMENTATION AND MODIFICATIONS           |
 | Copyright (C) 2020 SYSTOPIA                            |
 | Author: J. Margraf <margraf@systopia.de>,              |
 |         B. Endres (endres@systopia.de)                 |

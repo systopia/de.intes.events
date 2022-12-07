@@ -1,6 +1,6 @@
 # Intes CiviCRM Events
 
-This extension implements specific structures and workflows for events at the [EKIR](https://www2.ekir.de).
+This extension implements specific structures and workflows for events at the INTES
 
 The extension is licensed under [AGPL-3.0](LICENSE.txt).
 
