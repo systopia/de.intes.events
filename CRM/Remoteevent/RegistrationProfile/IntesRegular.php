@@ -239,7 +239,17 @@ class CRM_Remoteevent_RegistrationProfile_IntesRegular extends CRM_Remoteevent_R
                 'label'       => $l10n->localise('Sonstiges'),
                 'parent'      => 'other',
             ],
-           'event_agb'                   => [
+            'event_newsletter'                   => [
+                'name'        => 'event_newsletter',
+                'type'        => 'Checkbox',
+                'validation'  => '',
+                'weight'      => 90,
+                'required'    => 0,
+                'label'       => $l10n->localise('Ja, ich möchte INTES Up-to-date erhalten.'),
+                'description' => $l10n->localise("Damit wir Sie einladen und informieren dürfen möchten wir Sie bitten, ihre Anmeldung zu INTES Up-to-date zu bestätigen. Selbstverständlich können Sie zu diesen jederzeit über einen entsprechenden Link am Ende jedes Newsletters abbestellen und ihre Einwilligung jederzeit ohne Angabe von Gründen widerrufen."),
+                'parent'      => 'other',
+            ],
+            'event_agb'                   => [
                 'name'        => 'event_agb',
                 'type'        => 'Checkbox',
                 'validation'  => '',
@@ -343,6 +353,53 @@ Nach Ihrer Anmeldung erhalten Sie eine schriftliche Bestätigung und eine Anfahr
                         $participant_data['role_id'][] = $participant_data['additional_role'];
                     }
                 }
+
+                // SUPPORT for Newsletter Subscribe feature
+                if (!empty($participant_data['event_newsletter'])){
+                    $profile->createMailingEventSubscribe($registration->getSubmittedValue('email'), 'INTES-Up-to-date');
+                }
+            }
+        }
+    }
+
+    /**
+     * Subscribe Contact to Newsletter Group
+     *
+     * @return void
+     */
+    public function createMailingEventSubscribe($email, $group_name){
+
+        // get id of the name to subscribe for
+        try{
+            $group = civicrm_api3('Group', 'getSingle', [
+                'return' => 'id',
+                'name' => $group_name,
+            ]);
+        } catch (CiviCRM_API3_Exception $exception) {
+            Civi::log()->error("EKIR-Events: Couldn't get Group for createMailingEventSubscribe. Error was: " . $exception->getMessage());
+            return;
+        }
+
+        // if group id exists
+        if (empty($group) or empty($group['id'])) {
+            Civi::log()->error("EKIR-Events: No Group returned for createMailingEventSubscribe. Maybe no Group exists with name: " . $group_name);
+            return;
+        }else{
+            try{
+                // subscribe contact to group
+                $subscription = civicrm_api3(
+                    'MailingEventSubscribe',
+                    'create',
+                    [
+                        'email' => $email,
+                        'group_id' => $group['id']
+                    ]
+                );
+                #Civi::log()->debug('Successfully subscribed for Mailing Group ID:'.$group['id']);
+
+            } catch (CiviCRM_API3_Exception $exception) {
+                Civi::log()->error("EKIR-Events: Couldn't Subscribe contact to Group. Error was: " . $exception->getMessage());
+                return;
             }
         }
     }

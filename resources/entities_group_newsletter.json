@@ -1,0 +1,16 @@
+{
+  "entity": "Group",
+  "_entities": [
+    {
+      "_lookup": ["name"],
+      "_translate": ["label"],
+      "name": "INTES-Up-to-date",
+      "title": "INTES-Up-to-date",
+      "group_type": "Mailing List",
+      "frontend_title": "INTES Up-to-date",
+      "visibility": "Public Pages",
+      "is_default": "0",
+      "is_active": "1"
+    }
+  ]
+}
